@@ -41,7 +41,7 @@ class RMM(object):
         index = len(text)
         window_size = min(index,self.window_size)
         while index > 0:
-            for size in range(index-window_size,index):
+            for size in range(max(0, index-window_size),index):
                 piece = text[size:index]
                 if piece in self.word_dict:
                     index = size + 1
@@ -83,5 +83,6 @@ if __name__ == '__main__':
     text = '研究生命的起源'
     #     tokenizer = FMM(dic)
     #     tokenizer = RMM(dic)
-    tokenizer = BIMM(dic)
+    tokenizer = BIMM(set(dic)) # Use set to speed up "in" function
     print('/'.join(tokenizer.cut(text)))
+
